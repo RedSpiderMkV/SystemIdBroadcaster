@@ -12,6 +12,8 @@
 import socket
 
 def StartListener(port):
+    print('Starting socket')
+	
     listenerSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     listenerSocket.bind(('', port))
 

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 #-------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
@@ -12,12 +14,15 @@
 import threading
 import receiver
 import sender
+import time
 
 def main():
     port = 12345
 
     t = threading.Thread(target=receiver.StartListener, args=[port])
     t.start()
+
+    time.sleep(2)
 
     sender.TransmitData(port)
 
