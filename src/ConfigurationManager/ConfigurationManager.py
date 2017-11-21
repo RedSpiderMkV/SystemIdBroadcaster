@@ -1,6 +1,5 @@
 
 import os
-from xml.dom import minidom
 
 class ConfigurationManager:
 	''' ConfigurationManager class - extracts configuration data from
@@ -22,17 +21,16 @@ class ConfigurationManager:
 			
 		self._configFile = filePath
 	
-	def ReadConfiguration(self):
-		from xml.dom import minidom
-		xmldoc = minidom.parse(self._configFile)
-		port = xmldoc.getElementsByTagName('Port')[0].data
-		message = xmldoc.getElementsByTagName('Message')[0].firstchild.data
-		
-		print port, message
-		
-			
+	def GetConfigurationData(self):
 		content = None
 		with open(self._configFile, 'r') as f:
 			content = f.read()
 			
-		print(content)
+		broadcastData = content.split('\n')
+		portData = broadcastData[0]
+		messageData = broadcastData[1]
+		
+		port = portData.split(':')[1].lstrip(' ')
+		message = messageData.split(':')[1].lstrip(' ')
+		
+		return [port, message]
