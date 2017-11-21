@@ -35,7 +35,7 @@ class ConfigurationManager:
 		portData = broadcastData[0]
 		messageData = broadcastData[1]
 		
-		port = self._getCleanedData(portData)
+		port = int(self._getCleanedData(portData))
 		message = self._getCleanedData(messageData)
 		
 		return ConfigData(port, message)

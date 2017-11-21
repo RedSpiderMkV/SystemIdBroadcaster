@@ -16,15 +16,23 @@ import receiver
 import sender
 import time
 
+from ConfigurationManager.ConfigurationManager import ConfigurationManager
+
 def main():
-    port = 12345
+	fileManager = ConfigurationManager('broadcast.config')
+	configurationData = fileManager.GetConfigurationData()
+	
+	#print configurationData.GetPort()
+	#print configurationData.GetMessage()
+	
+	port = configurationData.GetPort()
 
-    t = threading.Thread(target=receiver.StartListener, args=[port])
-    t.start()
+	t = threading.Thread(target=receiver.StartListener, args=[port])
+	t.start()
 
-    time.sleep(2)
+	time.sleep(2)
 
-    sender.TransmitData(port)
+	sender.TransmitData(port)
 
 if __name__ == '__main__':
-    main()
+	main()
