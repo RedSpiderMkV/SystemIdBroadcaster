@@ -1,5 +1,6 @@
 
 import os
+from ConfigData import ConfigData
 
 class ConfigurationManager:
 	''' ConfigurationManager class - extracts configuration data from
@@ -22,7 +23,11 @@ class ConfigurationManager:
 		self._configFile = filePath
 	
 	def GetConfigurationData(self):
-		content = None
+		''' Get configuration data from file.
+		
+			@returns: ConfigData - Configuration data wrapped within a
+				ConfigData object. '''
+				
 		with open(self._configFile, 'r') as f:
 			content = f.read()
 			
@@ -33,4 +38,4 @@ class ConfigurationManager:
 		port = portData.split(':')[1].lstrip(' ')
 		message = messageData.split(':')[1].lstrip(' ')
 		
-		return [port, message]
+		return ConfigData(port, message)

@@ -3,10 +3,10 @@ from ConfigurationManager.ConfigurationManager import ConfigurationManager
 
 def main():
 	fileManager = ConfigurationManager('broadcast.config')
-	[port, message] = fileManager.GetConfigurationData()
+	configurationData = fileManager.GetConfigurationData()
 	
-	print port
-	print message
+	print configurationData.GetPort()
+	print configurationData.GetMessage()
 
 if __name__ == '__main__':
 	main()
