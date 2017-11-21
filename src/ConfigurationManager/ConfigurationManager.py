@@ -35,7 +35,10 @@ class ConfigurationManager:
 		portData = broadcastData[0]
 		messageData = broadcastData[1]
 		
-		port = portData.split(':')[1].lstrip(' ')
-		message = messageData.split(':')[1].lstrip(' ')
+		port = self._getCleanedData(portData)
+		message = self._getCleanedData(messageData)
 		
 		return ConfigData(port, message)
+
+	def _getCleanedData(self, data):
+		return data.split(':')[1].lstrip(' ')
