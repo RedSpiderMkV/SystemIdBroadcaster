@@ -11,28 +11,24 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-import threading
-import receiver
-import sender
 import time
 
 from ConfigurationManager.ConfigurationManager import ConfigurationManager
+from Broadcaster.BroadcastManager import BroadcastManager
+from Listener.BroadcastListener import BroadcastListener
 
 def main():
-	fileManager = ConfigurationManager('broadcast.config')
-	configurationData = fileManager.GetConfigurationData()
+	configurationManager = ConfigurationManager('broadcast.config')
+	configurationData = configurationManager.GetConfigurationData()
 	
-	#print configurationData.GetPort()
-	#print configurationData.GetMessage()
+	broadcastManager = BroadcastManager(configurationData)
+	broadcastListener = BroadcastListener(configurationData)
 	
-	port = configurationData.GetPort()
-
-	t = threading.Thread(target=receiver.StartListener, args=[port])
-	t.start()
-
-	time.sleep(2)
-
-	sender.TransmitData(port)
+	broadcastManager.StartBroadcastAsync()
+	broadcastListener.StartListenerAsync()
+	
+	while(True):
+		time.sleep(5)
 
 if __name__ == '__main__':
 	main()
