@@ -13,18 +13,10 @@
 
 import time
 
-from ConfigurationManager.ConfigurationManager import ConfigurationManager
-from Broadcaster.BroadcastManager import BroadcastManager
 from Listener.BroadcastListener import BroadcastListener
 
 def main():
-	configurationManager = ConfigurationManager('broadcast.config')
-	configurationData = configurationManager.GetConfigurationData()
-	
-	broadcastManager = BroadcastManager(configurationData)
-	broadcastListener = BroadcastListener(configurationData)
-	
-	broadcastManager.StartBroadcastAsync()
+	broadcastListener = BroadcastListener(12345)
 	broadcastListener.StartListenerAsync()
 	
 	while(True):

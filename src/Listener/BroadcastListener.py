@@ -4,9 +4,8 @@ import threading
 import time
 
 class BroadcastListener:
-	def __init__(self, configurationData):
-		self._port = configurationData.GetPort()
-		self._message = configurationData.GetMessage()
+	def __init__(self, port):
+		self._port = port
 		
 	def StartListenerAsync(self):
 		listenerThread = threading.Thread(target=self._startListener)
