@@ -8,14 +8,23 @@ class BroadcastListener:
 		self._port = port
 		
 	def StartListenerAsync(self):
-		listenerThread = threading.Thread(target=self._startListener)
-		listenerThread.start()
+		self._haltFlag = False
+		self._listenerThread = threading.Thread(target=self._startListener)
+		self._listenerThread.start()
+		
+	def StopListener(self):
+		self._haltFlag = True
+		
+		socketAddress = ('255.255.255.255', self._port)
+		broadcastSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		broadcastSocket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)		
+		broadcastSocket.sendto('end', socketAddress)
 	
 	def _startListener(self):
 		listenerSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		listenerSocket.bind(('', self._port))
 
-		while(True):
+		while not self._haltFlag:
 			receivedData = listenerSocket.recvfrom(1024)
 			sender = receivedData[1]
 			
@@ -25,4 +34,4 @@ class BroadcastListener:
 			
 			print ipAddress + ':', message
 			
-			time.sleep(1)
+

@@ -16,11 +16,15 @@ import time
 from Listener.BroadcastListener import BroadcastListener
 
 def main():
-	broadcastListener = BroadcastListener(12345)
+	broadcastListener = BroadcastListener(12348)
 	broadcastListener.StartListenerAsync()
 	
 	while(True):
-		time.sleep(5)
+		data = raw_input()
+		
+		if data == 'end':
+			broadcastListener.StopListener()
+			break
 
 if __name__ == '__main__':
 	main()
