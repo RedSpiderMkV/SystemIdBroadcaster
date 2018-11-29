@@ -15,7 +15,7 @@ class BroadcastListener:
 	def StopListener(self):
 		self._haltFlag = True
 		
-		socketAddress = ('255.255.255.255', self._port)
+		socketAddress = ('192.168.1.255', self._port)
 		broadcastSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		broadcastSocket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)		
 		broadcastSocket.sendto('end', socketAddress)
@@ -32,6 +32,6 @@ class BroadcastListener:
 			port = sender[1]
 			message = receivedData[0]
 			
-			print ipAddress + ':', message
+			print message
 			
 

@@ -34,11 +34,13 @@ class ConfigurationManager:
 		broadcastData = content.split('\n')
 		portData = broadcastData[0]
 		messageData = broadcastData[1]
+		initialDelay = broadcastData[2]
 		
 		port = int(self._getCleanedData(portData))
 		message = self._getCleanedData(messageData)
+		delay = int(self._getCleanedData(initialDelay))
 		
-		return ConfigData(port, message)
+		return ConfigData(port, message, delay)
 
 	def _getCleanedData(self, data):
 		return data.split(':')[1].lstrip(' ')
